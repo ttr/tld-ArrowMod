@@ -36,5 +36,5 @@ using MelonLoader;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: MelonModInfo(typeof(ArrowMod.ArrowMod), "ArrowMod", "1.0", "ttr")]
+[assembly: MelonModInfo(typeof(ArrowMod.ArrowMod), "ArrowMod", "1.1", "ttr")]
 [assembly: MelonModGame("Hinterland", "TheLongDark")]
