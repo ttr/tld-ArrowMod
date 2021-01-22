@@ -1,13 +1,16 @@
 # ArrowMod
 
-Change crafting time of Arrow, adds line as requirement for arrow.
+This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requires ModSettings.
 
-In TLD, You spend 1h to craft 3 arrow shafts, 1h to create one head and 90m to assebly arrow.
-This is unrealistic.
-Creatinf arrow head, even for unskilled person, will take much shorter time. Shaft is usualy most time consuming as it needs to be perfectly straight.
+## Features
 
-Arrows in TLD are just those two and fethers slaped together (assuming by small cut-holes on shaft). This takes much less than 90 minutes. 15-30 will be enough.
-Aslo, feathers in arrows many times where glued in with tar or sap, or attached using line. Same goes for head. This also increased durability and made sure that arror will not felt apart too soon.
+1. Arrow craft time can be adjusted.
+2. Arrowhead craft time can be adjusted. This also accurately adjusts the crafting time of the 7-arrowhead recipe in [ForgeBlueprintsMod](https://github.com/ds5678/ForgeBlueprintsMod).
+3. Optionally, lines can be required for crafting arrows. However, it will not show up in the crafting menu. This is caused by TLD and will probably not change.
 
-This Mod also can add use of line to create arrow. If enabled, one line will be required to craf arrow, on top of head, fethers and shaft. Please take a note, that crafting window will only show 3 first items needed in recipe. This is visual issue on TLD side and will not be fixed.
+## Installation
 
+1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
+2. Download the latest version of `ArrowMod.dll` from the [releases page](https://github.com/ds5678/tld-ArrowMod/releases)
+3. Download the latest version of `ModSettings.dll` from its [release page](https://github.com/zeobviouslyfakeacc/ModSettings/releases)
+4. Move `ArrowMod.dll` and `ModSettings.dll` into the Mods folder in your TLD install directory
