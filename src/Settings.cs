@@ -1,11 +1,9 @@
 using ModSettings;
-using System.Reflection;
 
 namespace ArrowMod
 {
 	internal class ArrowModSettings : JsonModSettings
 	{
-
 		[Name("Arrowhead craft time")]
 		[Description("Minutes to craft 2 arrowheads. Default is 60, recommended is 20-40")]
 		[Slider(1, 120)]
