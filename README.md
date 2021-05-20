@@ -5,7 +5,7 @@ This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requir
 ## Features
 
 1. Arrow craft time can be adjusted.
-2. Arrowhead craft time can be adjusted. This also accurately adjusts the crafting time of the 7-arrowhead recipe in [ForgeBlueprintsMod](https://github.com/ds5678/ForgeBlueprintsMod).
+2. Arrowhead craft time can be adjusted. This also accurately adjusts the crafting time of the 7-arrowhead recipe in [ForgeBlueprintsMod](https://github.com/ds5678/ForgeBlueprintsMod) (or any other mod that will modifiy resutling quantity).
 3. Optionally, lines can be required for crafting arrows. However, it will not be visible in the crafting menu. This is caused by TLD and will probably not change.
 
 ## Installation
