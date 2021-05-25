@@ -18,6 +18,15 @@ namespace ArrowMod
 		[Description("Require 1 line to craft an arrow. Will not display as a requirement in the crafting menu.")]
 		public bool arrowUseLine = false;
 
+		[Name("Craft Arrowshaft from Hardwood")]
+		[Description("Allow to use hardwood to craft arrow shafts.")]
+		public bool craftArrowFromWood = false;
+
+		[Name("... skill level")]
+		[Description("Archery skill required to craft arrow shaft from wood - designed to be late game - recommended is 4-5.")]
+		[Slider(0, 5)]
+		public int craftArrowFromWoodLevel = 5;
+
 	}
 	internal static class Settings
 	{
