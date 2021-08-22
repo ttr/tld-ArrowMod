@@ -8,6 +8,7 @@ This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requir
 2. Arrowhead craft time can be adjusted. This also accurately adjusts the crafting time of the 7-arrowhead recipe in [ForgeBlueprintsMod](https://github.com/ds5678/ForgeBlueprintsMod) (or any other mod that will modifiy resutling quantity).
 3. Optionally, lines can be required for crafting arrows. However, it will not be visible in the crafting menu. This is caused by TLD and will probably not change.
 4. Optionally, arrow shafts can also be crafted from hardwood - intended for late game, based on archery skill.
+5. Optionally, arrows can be crafted using birch bark as fletching instead of fethers - intended for late game, based on archery skill.
 
 ## Installation
 
@@ -18,4 +19,4 @@ This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requir
 
 ## Notes
 
-Many thanks to all TLD moding commniunity for support and assist. Additionall thanks to ds5678 for maitiaingin this mod while I was away.
+Many thanks to all TLD moding commniunity for support and assist.
