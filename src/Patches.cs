@@ -207,6 +207,15 @@ namespace ArrowMod
                         __result = false;
                     }
                 }
+                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && __instance.m_RequiredGear[1] == GetGearItemPrefab("GEAR_BarkTinder") && __result)
+                {
+                    int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
+                    int requiredArcherySkill = Settings.options.craftFletchingFromBarkLevel;
+                    if (currentArcherySkill < requiredArcherySkill)
+                    {
+                        __result = false;
+                    }
+                }
             }
         }
 
