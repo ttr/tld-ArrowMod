@@ -1,20 +1,14 @@
 ﻿using MelonLoader;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using BuildInfo = ArrowMod.BuildInfo;
 
-[assembly: ComVisible(false)]
-[assembly: Guid("daf59c7b-b568-4a66-beca-0d8b47971845")]
+//This is a C# comment. Comments have no impact on compilation.
 
-[assembly: AssemblyTitle(BuildInfo.Name)]
-[assembly: AssemblyDescription(BuildInfo.Description)]
-[assembly: AssemblyCompany(BuildInfo.Company)]
-[assembly: AssemblyProduct(BuildInfo.Name)]
-[assembly: AssemblyCopyright("Created by " + BuildInfo.Author)]
-[assembly: AssemblyTrademark(BuildInfo.Company)]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyTitle(ArrowMod.BuildInfo.ModName)]
+[assembly: AssemblyCopyright($"Created by {ArrowMod.BuildInfo.ModAuthor}")]
 
-[assembly: AssemblyVersion(BuildInfo.Version)]
-[assembly: AssemblyFileVersion(BuildInfo.Version)]
-[assembly: MelonInfo(typeof(ArrowMod.ArrowMod), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, BuildInfo.DownloadLink)]
+[assembly: AssemblyVersion(ArrowMod.BuildInfo.ModVersion)]
+[assembly: AssemblyFileVersion(ArrowMod.BuildInfo.ModVersion)]
+[assembly: MelonInfo(typeof(ArrowMod.ArrowMod), ArrowMod.BuildInfo.ModName, ArrowMod.BuildInfo.ModVersion, ArrowMod.BuildInfo.ModAuthor)]
+
+//This tells MelonLoader that the mod is only for The Long Dark.
 [assembly: MelonGame("Hinterland", "TheLongDark")]

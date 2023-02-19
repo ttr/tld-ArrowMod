@@ -12,11 +12,15 @@ This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requir
 
 ## Installation
 
+Always up to date instructions: https://xpazeman.com/tld-mod-list/install.html
+
 1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
 2. Download the latest version of `ArrowMod.dll` from the [releases page](https://github.com/ds5678/tld-ArrowMod/releases/latest)
 3. Download the latest version of `ModSettings.dll` from its [release page](https://github.com/zeobviouslyfakeacc/ModSettings/releases/latest)
 4. Move `ArrowMod.dll` and `ModSettings.dll` into the Mods folder in your TLD install directory
 
 ## Notes
+
+Settings change will require game restart.
 
 Many thanks to all TLD moding commniunity for support and assist.

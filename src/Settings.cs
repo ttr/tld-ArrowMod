@@ -2,9 +2,13 @@ using ModSettings;
 
 namespace ArrowMod
 {
+	
 	internal class ArrowModSettings : JsonModSettings
 	{
-		[Name("Arrowhead craft time")]
+        [Section("Arrow Mod Settings")]
+        
+
+        [Name("Arrowhead craft time")]
 		[Description("Minutes to craft 2 arrowheads. Default is 60, recommended is 20-40")]
 		[Slider(1, 120)]
 		public int arrowHeadCraftTime = 60;
@@ -15,7 +19,7 @@ namespace ArrowMod
 		public int arrowCraftTime = 90;
 
 		[Name("Use line")]
-		[Description("Require 1 line to craft an arrow. Note: Due to game limitation, only 3 first ingredients are disaied in crafing menu - eneblaing this will require 4, so arrow head, even if not disaplyed, still is needed.")]
+		[Description("Require 1 line to craft an arrow.\nNote: Due to game limitation, only 3 first ingredients are disaied in crafing menu - eneblaing this will require 4, so arrow head, even if not disaplyed, still is needed.")]
 		public bool arrowUseLine = false;
 
 		[Name("Craft Arrowshaft from Hardwood")]
@@ -28,7 +32,7 @@ namespace ArrowMod
 		public int craftArrowFromWoodLevel = 5;
 
 		[Name("Craft arrow fletchings from Bark")]
-		[Description("Allow to use birch bark to craft arrow fletchings. NOTE: Require 'Use line' to be turn on. NOTE2: resulting arrow is same as vanilla one, meaning deconstricting it will yeld feathers.")]
+		[Description("Allow to use birch bark to craft arrow fletchings.\nNOTE: Require 'Use line' to be turn on.\nNOTE2: resulting arrow is same as vanilla one, meaning deconstricting it will yeld feathers.")]
 		public bool craftFletchingFromBark = false;
 
 		[Name("... skill level")]
@@ -41,7 +45,10 @@ namespace ArrowMod
 		[Slider(0, 20)]
 		public int craftFletchingFromBarkTime = 5;
 
-	}
+        
+
+
+    }
 	internal static class Settings
 	{
 		public static ArrowModSettings options;

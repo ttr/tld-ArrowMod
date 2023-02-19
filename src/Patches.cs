@@ -1,22 +1,29 @@
 using MelonLoader;
-using UnhollowerBaseLib;
 using HarmonyLib;
 using UnityEngine;
-
+using Il2Cpp;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppTLD.Gear;
+using UnityEngine.Playables;
+using Il2CppSystem.Linq.Expressions;
 
 namespace ArrowMod
 {
     internal static class Patches
     {
-        [HarmonyPatch(typeof(GameManager), "Awake")]
-        public class GameManager_Awake
+
+        //[HarmonyPatch(typeof(GameManager), "Awake")]
+        [HarmonyPatch(typeof(Panel_Crafting), nameof(Panel_Crafting.Initialize))]
+        public class InterfaceManager_Awake
         {
             private static void Postfix()
             {
-
+                
+                ArrowMod.Log("Adding blueprints.");
                 if (Settings.options.arrowUseLine)
                 {
-                    BlueprintItem bpi = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
+                    BlueprintData bpi = new();
+
                     // Inputs
                     bpi.m_KeroseneLitersRequired = 0f;
                     bpi.m_GunpowderKGRequired = 0f;
@@ -34,27 +41,24 @@ namespace ArrowMod
                     bpi.m_RequiresLitFire = false;
                     bpi.m_RequiredCraftingLocation = CraftingLocation.Workbench;
                     bpi.m_DurationMinutes = Settings.options.arrowCraftTime; // whaever, we need to set this in ItemPassFilter
-                    bpi.m_CraftingAudio = "PLAY_CRAFTINGARROWS";
+                    bpi.m_CraftingAudio = MakeAudioEvent("PLAY_CRAFTINGARROWS");
+
                     bpi.m_AppliedSkill = SkillType.None;
                     bpi.m_ImprovedSkill = SkillType.None;
-                    bpi.m_RequiredGear = new Il2CppReferenceArray<GearItem>(4)
+                    bpi.m_RequiredGear = new Il2CppReferenceArray<BlueprintData.RequiredGearItem>(0) { };
+
+                    bpi.m_RequiredGear = new Il2CppReferenceArray<BlueprintData.RequiredGearItem>(4)
                     {
-                        [0] = GetGearItemPrefab("GEAR_Line"),
-                        [1] = GetGearItemPrefab("GEAR_CrowFeather"),
-                        [2] = GetGearItemPrefab("GEAR_ArrowShaft"),
-                        [3] = GetGearItemPrefab("GEAR_ArrowHead")
+                        [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Line") },
+                        [1] = new BlueprintData.RequiredGearItem() { m_Count = 3, m_Item = GetGearItemPrefab("GEAR_CrowFeather") },
+                        [2] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowShaft") },
+                        [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                     };
-                    bpi.m_RequiredGearUnits = new Il2CppStructArray<int>(4)
-                    {
-                        [0] = 1,
-                        [1] = 3,
-                        [2] = 1,
-                        [3] = 1
-                    };
+                    InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi);
 
                     if (Settings.options.craftFletchingFromBark)
                     {
-                        BlueprintItem bpi2 = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
+                        BlueprintData bpi2 = new();
                         // Inputs
                         bpi2.m_KeroseneLitersRequired = 0f;
                         bpi2.m_GunpowderKGRequired = 0f;
@@ -72,28 +76,22 @@ namespace ArrowMod
                         bpi2.m_RequiresLitFire = false;
                         bpi2.m_RequiredCraftingLocation = CraftingLocation.Workbench;
                         bpi2.m_DurationMinutes = 2 * (Settings.options.arrowCraftTime + Settings.options.craftFletchingFromBarkTime); // whaever, we need to set this in ItemPassFilter
-                        bpi2.m_CraftingAudio = "PLAY_CRAFTINGARROWS";
+                        bpi2.m_CraftingAudio = MakeAudioEvent("PLAY_CRAFTINGARROWS");
                         bpi2.m_AppliedSkill = SkillType.None;
                         bpi2.m_ImprovedSkill = SkillType.None;
-                        bpi2.m_RequiredGear = new Il2CppReferenceArray<GearItem>(4)
+                        bpi2.m_RequiredGear = new Il2CppReferenceArray<BlueprintData.RequiredGearItem>(4)
                         {
-                            [0] = GetGearItemPrefab("GEAR_Line"),
-                            [1] = GetGearItemPrefab("GEAR_BarkTinder"),
-                            [2] = GetGearItemPrefab("GEAR_ArrowShaft"),
-                            [3] = GetGearItemPrefab("GEAR_ArrowHead")
+                            [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Line") },
+                            [1] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_BarkTinder") },
+                            [2] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowShaft") },
+                            [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                         };
-                        bpi2.m_RequiredGearUnits = new Il2CppStructArray<int>(4)
-                        {
-                            [0] = 1,
-                            [1] = 1,
-                            [2] = 1,
-                            [3] = 1
-                        };
+                        InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi2);
                     }
                 }
                 if (Settings.options.craftArrowFromWood)
                 {
-                    BlueprintItem bpi3 = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
+                    BlueprintData bpi3 = new();
                     // Inputs
                     bpi3.m_KeroseneLitersRequired = 0f;
                     bpi3.m_GunpowderKGRequired = 0f;
@@ -111,17 +109,15 @@ namespace ArrowMod
                     bpi3.m_RequiresLitFire = false;
                     bpi3.m_RequiredCraftingLocation = CraftingLocation.Workbench;
                     bpi3.m_DurationMinutes = 180; // with knife it will be 1/2 of this time; it will be much longer than from branch but it takes time to cut arrow from plank
-                    bpi3.m_CraftingAudio = "PLAY_CRAFTINGARROWS";
+                    bpi3.m_CraftingAudio = MakeAudioEvent("PLAY_CRAFTINGARROWS");
                     bpi3.m_AppliedSkill = SkillType.None;
                     bpi3.m_ImprovedSkill = SkillType.None;
-                    bpi3.m_RequiredGear = new Il2CppReferenceArray<GearItem>(1)
+                    bpi3.m_RequiredGear = new Il2CppReferenceArray<BlueprintData.RequiredGearItem>(1)
                     {
-                        [0] = GetGearItemPrefab("GEAR_Hardwood")
+                        [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Hardwood") }
                     };
-                    bpi3.m_RequiredGearUnits = new Il2CppStructArray<int>(1)
-                    {
-                        [0] = 1
-                    };
+                    InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi3);
+                    InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Sort();
                 }
             }
         }
@@ -129,7 +125,7 @@ namespace ArrowMod
         [HarmonyPatch(typeof(Panel_Crafting), "ItemPassesFilter")]
         private static class Panel_Crafting_ItemPassesFilter
         {
-            private static void Postfix(Panel_Crafting __instance, ref bool __result, BlueprintItem bpi)
+            private static void Postfix(Panel_Crafting __instance, ref bool __result, BlueprintData bpi)
             {
                 if (bpi?.m_CraftedResult?.name == "GEAR_Arrow")
                 {
@@ -137,7 +133,7 @@ namespace ArrowMod
                     {
                         __result = false;
                     }
-                    if (bpi.m_RequiredGear[1] == GetGearItemPrefab("GEAR_BarkTinder"))
+                    if (bpi.m_RequiredGear[1].m_Item == GetGearItemPrefab("GEAR_BarkTinder"))
                     {
                         bpi.m_DurationMinutes = (Settings.options.arrowCraftTime + Settings.options.craftFletchingFromBarkTime) * 2;
                     }
@@ -156,7 +152,6 @@ namespace ArrowMod
 
             }
         }
-
         // based on better mending mod
         [HarmonyPatch(typeof(Panel_Crafting), "RefreshSelectedBlueprint")]
         public class Panel_Crafting_RefreshSelectedBlueprint
@@ -164,10 +159,11 @@ namespace ArrowMod
             private static void Postfix(Panel_Crafting __instance)
             {
                 //__instance.m_SelectedDescription.color = whiteColor;
-                BlueprintItem bpi = __instance.m_SelectedBPI;
+                BlueprintData bpi = __instance.m_SelectedBPI;
                 if (bpi)
                 {
-                    if (bpi.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && bpi.m_RequiredGear[0] == GetGearItemPrefab("GEAR_Hardwood"))
+                    __instance.m_SelectedDescription.color = whiteColor;
+                    if (bpi.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && bpi.m_RequiredGear[0].m_Item == GetGearItemPrefab("GEAR_Hardwood"))
                     {
                         int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
                         int requiredArcherySkill = Settings.options.craftArrowFromWoodLevel;
@@ -177,7 +173,7 @@ namespace ArrowMod
                             __instance.m_SelectedDescription.color = redColor;
                         }
                     }
-                    if (bpi.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && bpi.m_RequiredGear[1] == GetGearItemPrefab("GEAR_BarkTinder"))
+                    if (bpi.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && bpi.m_RequiredGear[1].m_Item == GetGearItemPrefab("GEAR_BarkTinder"))
                     {
                         int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
                         int requiredArcherySkill = Settings.options.craftFletchingFromBarkLevel;
@@ -192,13 +188,13 @@ namespace ArrowMod
         }
 
         // based on better mending mod
-        [HarmonyPatch(typeof(BlueprintItem), "CanCraftBlueprint")]
-        private class BlueprintItem_CanCraftBlueprint
+        [HarmonyPatch(typeof(BlueprintData), "CanCraftBlueprint")]
+        private class BlueprintData_CanCraftBlueprint
         {
 
-            private static void Postfix(ref bool __result, BlueprintItem __instance)
+            private static void Postfix(ref bool __result, BlueprintData __instance)
             {
-                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && __instance.m_RequiredGear[0] == GetGearItemPrefab("GEAR_Hardwood") && __result)
+                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && __instance.m_RequiredGear[0].m_Item == GetGearItemPrefab("GEAR_Hardwood") && __result)
                 {
                     int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
                     int requiredArcherySkill = Settings.options.craftArrowFromWoodLevel;
@@ -207,7 +203,7 @@ namespace ArrowMod
                         __result = false;
                     }
                 }
-                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && __instance.m_RequiredGear[1] == GetGearItemPrefab("GEAR_BarkTinder") && __result)
+                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && __instance.m_RequiredGear[1].m_Item == GetGearItemPrefab("GEAR_BarkTinder") && __result)
                 {
                     int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
                     int requiredArcherySkill = Settings.options.craftFletchingFromBarkLevel;
@@ -219,8 +215,35 @@ namespace ArrowMod
             }
         }
 
-        private static GearItem GetGearItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<GearItem>();
-        private static ToolsItem GetToolItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<ToolsItem>();
+        //private static GearItem GetGearItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<GearItem>();
+        private static GearItem GetGearItemPrefab(string name)
+        {
+            return GearItem.LoadGearItemPrefab(name);
+        }
+        //private static ToolsItem GetToolItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<ToolsItem>();
+        private static ToolsItem GetToolItemPrefab(string name)
+        {
+            return GearItem.LoadGearItemPrefab(name).m_ToolsItem;
+        }
+        // from CraftingRevisions by ds5678 and STBlade
+        public static Il2CppAK.Wwise.Event? MakeAudioEvent(string eventName)
+        {
+            if (eventName == null)
+            {
+                return null;
+            }
+            uint eventId = AkSoundEngine.GetIDFromString(eventName);
+            if (eventId <= 0 || eventId >= 4294967295)
+            {
+                return null;
+            }
+
+            Il2CppAK.Wwise.Event newEvent = new();
+            newEvent.WwiseObjectReference = new WwiseEventReference();
+            newEvent.WwiseObjectReference.objectName = eventName;
+            newEvent.WwiseObjectReference.id = eventId;
+            return newEvent;
+        }
 
         private static readonly Color whiteColor = new Color(0.7f, 0.7f, 0.7f);
         private static readonly Color redColor = new Color(0.7f, 0f, 0f);
