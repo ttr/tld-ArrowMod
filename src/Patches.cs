@@ -117,7 +117,6 @@ namespace ArrowMod
                         [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Hardwood") }
                     };
                     InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi3);
-                    InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Sort();
                 }
             }
         }
