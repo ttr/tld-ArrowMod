@@ -12,6 +12,7 @@ namespace ArrowMod
     internal class ArrowMod : MelonMod
     {
 
+
         public override void OnInitializeMelon()
         {
             Settings.OnLoad();
