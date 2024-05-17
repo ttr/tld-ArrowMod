@@ -7,6 +7,7 @@ using Il2CppTLD.Gear;
 using UnityEngine.Playables;
 using Il2CppSystem.Linq.Expressions;
 
+
 namespace ArrowMod
 {
     internal static class Patches
@@ -55,6 +56,7 @@ namespace ArrowMod
                         [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                     };
                     InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi);
+                    ArrowMod.Log("Adding blueprint 1.");
 
                     if (Settings.options.craftFletchingFromBark)
                     {
@@ -87,6 +89,7 @@ namespace ArrowMod
                             [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                         };
                         InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi2);
+                        ArrowMod.Log("Adding blueprint 2.");
                     }
                 }
                 if (Settings.options.craftArrowFromWood)
@@ -117,6 +120,7 @@ namespace ArrowMod
                         [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Hardwood") }
                     };
                     InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(bpi3);
+                    ArrowMod.Log("Adding blueprint 3.");
                 }
             }
         }
@@ -126,6 +130,7 @@ namespace ArrowMod
         {
             private static void Postfix(Panel_Crafting __instance, ref bool __result, BlueprintData bpi)
             {
+                ArrowMod.Log("Panel_Crafting_ItemPassesFilter");
                 if (bpi?.m_CraftedResult?.name == "GEAR_Arrow")
                 {
                     if (Settings.options.arrowUseLine && bpi.m_RequiredGear.Count == 3)
@@ -157,8 +162,9 @@ namespace ArrowMod
         {
             private static void Postfix(Panel_Crafting __instance)
             {
+                ArrowMod.Log("Panel_Crafting_RefreshSelectedBlueprint");
                 //__instance.m_SelectedDescription.color = whiteColor;
-                BlueprintData bpi = __instance.m_SelectedBPI;
+                BlueprintData bpi = __instance.SelectedBPI;
                 if (bpi)
                 {
                     __instance.m_SelectedDescription.color = whiteColor;
@@ -190,9 +196,10 @@ namespace ArrowMod
         [HarmonyPatch(typeof(BlueprintData), "CanCraftBlueprint")]
         private class BlueprintData_CanCraftBlueprint
         {
-
+            
             private static void Postfix(ref bool __result, BlueprintData __instance)
             {
+                ArrowMod.Log("BlueprintData_CanCraftBlueprint");
                 if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && __instance.m_RequiredGear[0].m_Item == GetGearItemPrefab("GEAR_Hardwood") && __result)
                 {
                     int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;

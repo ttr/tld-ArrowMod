@@ -19,7 +19,7 @@ namespace ArrowMod
 		public int arrowCraftTime = 90;
 
 		[Name("Use line")]
-		[Description("Require 1 line to craft an arrow.\nNote: Due to game limitation, only 3 first ingredients are disaied in crafing menu - eneblaing this will require 4, so arrow head, even if not disaplyed, still is needed.")]
+		[Description("Require 1 line to craft an arrow.\nNote: Due to game limitation, only 3 first ingredients are displayed in crafing menu - enabling this setting will require 4, so arrow head, even if not displayed, is still needed.")]
 		public bool arrowUseLine = false;
 
 		[Name("Craft Arrowshaft from Hardwood")]

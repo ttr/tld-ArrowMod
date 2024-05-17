@@ -1,8 +1,6 @@
 ﻿using MelonLoader;
 using System.Reflection;
 
-//This is a C# comment. Comments have no impact on compilation.
-
 [assembly: AssemblyTitle(ArrowMod.BuildInfo.ModName)]
 [assembly: AssemblyCopyright($"Created by {ArrowMod.BuildInfo.ModAuthor}")]
 
