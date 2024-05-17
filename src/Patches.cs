@@ -147,138 +147,68 @@ namespace ArrowMod
         }
         [HarmonyPatch(typeof(BlueprintManager), "GetAllBlueprints")]
         public static class BlueprintManager_GetAllBlueprints {
-            public static void Postfix(BlueprintManager __instance) { 
-                int p = __instance.m_AllBlueprints.Count;
-                Dictionary<string, BlueprintData> remove = new Dictionary<string, BlueprintData>();
-                ArrowMod.Log("removing Bps." + p);
+            public static void Postfix(BlueprintManager __instance) {
+                List<BlueprintData> remove = new List<BlueprintData>();
                 foreach (BlueprintData val in __instance.m_AllBlueprints)
                 {
-                    ArrowMod.Log(" * " + val.name);
+                    //ArrowMod.Log(" * " + val.name);
                     if (Settings.options.arrowUseLine && val.name == "BLUEPRINT_GEAR_Arrow_A")
                     {
-                        remove.Add(val.name, val);
+                        remove.Add(val);
+                    }
+                    if (Settings.options.craftFletchingFromBark && val.name == "BLUEPRINT_GEAR_Arrow_ArrowMod_B")
+                    {
+                        if (!val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 < Settings.options.craftFletchingFromBarkLevel)
+                        {
+                            ArrowMod.Log("Locked: " + val.name);
+                            val.Locked = true;
+                        }
+                        if (val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 >= Settings.options.craftFletchingFromBarkLevel)
+                        {
+                            ArrowMod.Log("Un-locked: " + val.name);
+                            val.Locked = false;
+                        }
+                    }
+                    if (Settings.options.craftArrowFromWood && val.name == "BLUEPRINT_GEAR_ArrowShaft_ArrowMod_A")
+                    {
+                        if (!val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 < Settings.options.craftArrowFromWoodLevel)
+                        {
+                            ArrowMod.Log("Locked: " + val.name);
+                            val.Locked = true;
+                        }
+                        if (val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 >= Settings.options.craftArrowFromWoodLevel)
+                        {
+                            ArrowMod.Log("Un-locked: " + val.name);
+                            val.Locked = false;
+                        }
+                    }
+                    // arrowhead time
+                    if (val.m_CraftedResult.name == "GEAR_ArrowHead")
+                    {
+                        val.m_DurationMinutes = Settings.options.arrowHeadCraftTime * (int)Mathf.Floor(val.m_CraftedResultCount/2);
+                        ArrowMod.Log("arrowhead time: " + val.m_DurationMinutes + " for " + val.name);
                     }
                 }
-
-                foreach (BlueprintData val in remove.Values)
+                foreach (BlueprintData val in remove)
                 {
                     if (__instance.m_AllBlueprints.Remove(val))
                     {
-                        ArrowMod.Log(" - " + val.name);
+                        ArrowMod.Log("Removed: " + val.name);
                     }
                 }
             }
         }
 
-        /*
-        [HarmonyPatch(typeof(Panel_Crafting), "ItemPassesFilter")]
-        private static class Panel_Crafting_ItemPassesFilter
-        {
-            private static void Postfix(Panel_Crafting __instance, ref bool __result, BlueprintData bpi)
-            {
-                ArrowMod.Log("Panel_Crafting_ItemPassesFilter");
-                if (bpi?.m_CraftedResult?.name == "GEAR_Arrow")
-                {
-                    if (Settings.options.arrowUseLine && bpi.m_RequiredGear.Count == 3)
-                    {
-                        __result = false;
-                    }
-                    if (bpi.m_RequiredGear[1].m_Item == GetGearItemPrefab("GEAR_BarkTinder"))
-                    {
-                        bpi.m_DurationMinutes = (Settings.options.arrowCraftTime + Settings.options.craftFletchingFromBarkTime) * 2;
-                    }
-                    else
-                    {
-                        bpi.m_DurationMinutes = Settings.options.arrowCraftTime;
-                    }
-                }
-                else if (bpi?.m_CraftedResult?.name == "GEAR_ArrowHead")
-                {
-                    // for mods that override result count, like ForgeBlueprintsMod
-                    int resMulti = bpi.m_CraftedResultCount / 2;
-                    bpi.m_DurationMinutes = Settings.options.arrowHeadCraftTime * resMulti;
-
-                }
-
-            }
-        }
-        */
-        /*
-        // based on better mending mod
-        [HarmonyPatch(typeof(Panel_Crafting), "RefreshSelectedBlueprint")]
-        public class Panel_Crafting_RefreshSelectedBlueprint
-        {
-            private static void Postfix(Panel_Crafting __instance)
-            {
-                ArrowMod.Log("Panel_Crafting_RefreshSelectedBlueprint");
-                //__instance.m_SelectedDescription.color = whiteColor;
-                BlueprintData bpi = __instance.SelectedBPI;
-                if (bpi)
-                {
-                    __instance.m_SelectedDescription.color = whiteColor;
-                    if (bpi.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && bpi.m_RequiredGear[0].m_Item == GetGearItemPrefab("GEAR_Hardwood"))
-                    {
-                        int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
-                        int requiredArcherySkill = Settings.options.craftArrowFromWoodLevel;
-                        if (currentArcherySkill < requiredArcherySkill)
-                        {
-                            __instance.m_SelectedDescription.text = "Required Archery skill " + requiredArcherySkill.ToString();
-                            __instance.m_SelectedDescription.color = redColor;
-                        }
-                    }
-                    if (bpi.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && bpi.m_RequiredGear[1].m_Item == GetGearItemPrefab("GEAR_BarkTinder"))
-                    {
-                        int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
-                        int requiredArcherySkill = Settings.options.craftFletchingFromBarkLevel;
-                        if (currentArcherySkill < requiredArcherySkill)
-                        {
-                            __instance.m_SelectedDescription.text = "Required Archery skill " + requiredArcherySkill.ToString();
-                            __instance.m_SelectedDescription.color = redColor;
-                        }
-                    }
-                }
-            }
-        }
-
-        // based on better mending mod
-        [HarmonyPatch(typeof(BlueprintData), "CanCraftBlueprint")]
-        private class BlueprintData_CanCraftBlueprint
-        {
-
-            private static void Postfix(ref bool __result, BlueprintData __instance)
-            {
-                ArrowMod.Log("BlueprintData_CanCraftBlueprint");
-                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_ArrowShaft") && __instance.m_RequiredGear[0].m_Item == GetGearItemPrefab("GEAR_Hardwood") && __result)
-                {
-                    int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
-                    int requiredArcherySkill = Settings.options.craftArrowFromWoodLevel;
-                    if (currentArcherySkill < requiredArcherySkill)
-                    {
-                        __result = false;
-                    }
-                }
-                if (__instance.m_CraftedResult == GetGearItemPrefab("GEAR_Arrow") && __instance.m_RequiredGear[1].m_Item == GetGearItemPrefab("GEAR_BarkTinder") && __result)
-                {
-                    int currentArcherySkill = GameManager.GetSkillArchery().GetCurrentTierNumber() + 1;
-                    int requiredArcherySkill = Settings.options.craftFletchingFromBarkLevel;
-                    if (currentArcherySkill < requiredArcherySkill)
-                    {
-                        __result = false;
-                    }
-                }
-            }
-        }
-        */
-        //private static GearItem GetGearItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<GearItem>();
         private static GearItem GetGearItemPrefab(string name)
         {
             return GearItem.LoadGearItemPrefab(name);
         }
-        //private static ToolsItem GetToolItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<ToolsItem>();
+        
         private static ToolsItem GetToolItemPrefab(string name)
         {
             return GearItem.LoadGearItemPrefab(name).m_ToolsItem;
         }
+
         // from CraftingRevisions by ds5678 and STBlade
         public static Il2CppAK.Wwise.Event? MakeAudioEvent(string eventName)
         {
@@ -298,9 +228,6 @@ namespace ArrowMod
             newEvent.WwiseObjectReference.id = eventId;
             return newEvent;
         }
-
-        private static readonly Color whiteColor = new Color(0.7f, 0.7f, 0.7f);
-        private static readonly Color redColor = new Color(0.7f, 0f, 0f);
 
     }
 }

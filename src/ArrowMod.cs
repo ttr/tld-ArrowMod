@@ -20,7 +20,7 @@ namespace ArrowMod
         }
         public static void Log(string msg)
         {
-            MelonLogger.Msg(msg);
+            //MelonLogger.Msg(msg);
         }
     }
 }
