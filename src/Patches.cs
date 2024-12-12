@@ -30,7 +30,7 @@ namespace ArrowMod
                         m_OptionalTools = new Il2CppReferenceArray<ToolsItem>(0),
 
                         // Outputs
-                        m_CraftedResult = GetGearItemPrefab("GEAR_Arrow"),
+                        m_CraftedResultGear = GetGearItemPrefab("GEAR_Arrow"),
                         m_CraftedResultCount = 1,
 
                         // Process
@@ -72,7 +72,7 @@ namespace ArrowMod
                         m_OptionalTools = new Il2CppReferenceArray<ToolsItem>(0),
 
                         // Outputs
-                        m_CraftedResult = GetGearItemPrefab("GEAR_Arrow"),
+                        m_CraftedResultGear = GetGearItemPrefab("GEAR_Arrow"),
                         m_CraftedResultCount = 1,
 
                         // Process
@@ -114,7 +114,7 @@ namespace ArrowMod
                                 m_OptionalTools = new Il2CppReferenceArray<ToolsItem>(0),
 
                                 // Outputs
-                                m_CraftedResult = GetGearItemPrefab("GEAR_Arrow"),
+                                m_CraftedResultGear = GetGearItemPrefab("GEAR_Arrow"),
                                 m_CraftedResultCount = 1,
 
                                 // Process
@@ -157,7 +157,7 @@ namespace ArrowMod
                     m_OptionalTools = new Il2CppReferenceArray<ToolsItem>(0),
 
                     // Outputs
-                    m_CraftedResult = GetGearItemPrefab("GEAR_ArrowShaft"),
+                    m_CraftedResultGear = GetGearItemPrefab("GEAR_ArrowShaft"),
                     m_CraftedResultCount = 5,
 
                     // Process
@@ -226,7 +226,7 @@ namespace ArrowMod
                         }
                     }
                     // arrowhead time
-                    if (val.m_CraftedResult.name == "GEAR_ArrowHead")
+                    if (val.m_CraftedResultGear.name == "GEAR_ArrowHead")
                     {
                         val.m_DurationMinutes = Settings.options.arrowHeadCraftTime * (int)Mathf.Floor(val.m_CraftedResultCount/2);
                         ArrowMod.Log("arrowhead time: " + val.m_DurationMinutes + " for " + val.name);
