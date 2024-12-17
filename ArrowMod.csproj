@@ -39,6 +39,6 @@
 	</ItemGroup>
 
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y ArrowMod.dll "f:\Spiele\Steam\steamapps\common\TheLongDark\Mods\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /y ArrowMod.dll "D:\Games\SteamLibrary\steamapps\common\TheLongDark\Mods\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

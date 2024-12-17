@@ -1,6 +1,4 @@
-﻿#define DEBUG
-using MelonLoader;
-using UnityEngine.Rendering;
+﻿using MelonLoader;
 
 
 namespace ArrowMod
@@ -13,6 +11,8 @@ namespace ArrowMod
     }
     internal class ArrowMod : MelonMod
     {
+
+
         public override void OnInitializeMelon()
         {
             Settings.OnLoad();
@@ -20,9 +20,7 @@ namespace ArrowMod
         }
         public static void Log(string msg)
         {
-            #if DEBUG
             MelonLogger.Msg(msg);
-            #endif
         }
     }
 }

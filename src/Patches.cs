@@ -3,9 +3,9 @@ using UnityEngine;
 using Il2Cpp;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppTLD.Gear;
-//using Il2CppNodeCanvas.Tasks.Actions;
-//using UnityEngine.AddressableAssets;
-//using Unity.VisualScripting;
+using Il2CppNodeCanvas.Tasks.Actions;
+using UnityEngine.AddressableAssets;
+using Unity.VisualScripting;
 
 
 namespace ArrowMod
@@ -13,13 +13,12 @@ namespace ArrowMod
     internal static class Patches
     {
 
-        //[HarmonyPatch(typeof(Panel_Crafting), nameof(Panel_Crafting.Initialize))]
-        
+        [HarmonyPatch(typeof(Panel_Crafting), nameof(Panel_Crafting.Initialize))]
         public class Panel_Crafting_Initialize
         {
             private static void Postfix()
             {
-                ArrowMod.Log("Adding blueprints.");
+                //ArrowMod.Log("Adding blueprints.");
                 if (Settings.options.arrowUseLine)
                 {
                     InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(new BlueprintData()
@@ -59,7 +58,7 @@ namespace ArrowMod
                             [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                         }
                     });
-                    ArrowMod.Log("Adding blueprint 1.");
+                    //ArrowMod.Log("Adding blueprint 1.");
 
                     if (Settings.options.craftFletchingFromBark)
                     {
@@ -100,7 +99,7 @@ namespace ArrowMod
                             [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                         }
                     });
-                        ArrowMod.Log("Adding blueprint 2.");
+                        //ArrowMod.Log("Adding blueprint 2.");
 
                         if ((bool)GearItem.LoadGearItemPrefab("GEAR_BarkPrepared"))
                         {
@@ -142,7 +141,7 @@ namespace ArrowMod
                                     [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                                 }
                             });
-                            ArrowMod.Log("Adding blueprint 2b.");
+                            //ArrowMod.Log("Adding blueprint 2b.");
                         }
                     }
 
@@ -182,7 +181,7 @@ namespace ArrowMod
                         [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Hardwood") }
                     },
                 });
-                ArrowMod.Log("Adding blueprint 3.");
+                //ArrowMod.Log("Adding blueprint 3.");
                 }
 
             }
@@ -191,41 +190,38 @@ namespace ArrowMod
         [HarmonyPatch(typeof(BlueprintManager), "GetAllBlueprints")]
         public static class BlueprintManager_GetAllBlueprints {
             public static void Postfix(BlueprintManager __instance) {
-                ArrowMod.Log(" * Starting " );
                 foreach (BlueprintData val in __instance.m_AllBlueprints)
                 {
-                    ArrowMod.Log(" * " + val.name);
+                    //ArrowMod.Log(" * " + val.name);
                     if (Settings.options.arrowUseLine && val.name == "BLUEPRINT_GEAR_Arrow_A")
                     {
-                        ArrowMod.Log("BLUEPRINT_GEAR_Arrow_A Locked: " + val.name);
+                        //ArrowMod.Log("Locked: " + val.name);
                         val.Locked = true;
                         val.m_IgnoreLockInSurvival = false;
                     }
                     if (Settings.options.craftFletchingFromBark && val.name.StartsWith("BLUEPRINT_GEAR_Arrow_ArrowMod_B"))
                     {
-                        ArrowMod.Log("BLUEPRINT_GEAR_Arrow_ArrowMod_B Locked: " + val.name);
                         if (!val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 < Settings.options.craftFletchingFromBarkLevel)
                         {
-                            ArrowMod.Log("Locked: " + val.name);
+                            //ArrowMod.Log("Locked: " + val.name);
                             val.Locked = true;
                         }
                         if (val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 >= Settings.options.craftFletchingFromBarkLevel)
                         {
-                            ArrowMod.Log("Un-locked: " + val.name);
+                            //ArrowMod.Log("Un-locked: " + val.name);
                             val.Locked = false;
                         }
                     }
                     if (Settings.options.craftArrowFromWood && val.name == "BLUEPRINT_GEAR_ArrowShaft_ArrowMod_A")
                     {
-                        ArrowMod.Log("BLUEPRINT_GEAR_ArrowShaft_ArrowMod_A Locked: " + val.name);
                         if (!val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 < Settings.options.craftArrowFromWoodLevel)
                         {
-                            ArrowMod.Log("Locked: " + val.name);
+                            //ArrowMod.Log("Locked: " + val.name);
                             val.Locked = true;
                         }
                         if (val.Locked && GameManager.GetSkillArchery().GetCurrentTierNumber() + 1 >= Settings.options.craftArrowFromWoodLevel)
                         {
-                            ArrowMod.Log("Un-locked: " + val.name);
+                            //ArrowMod.Log("Un-locked: " + val.name);
                             val.Locked = false;
                         }
                     }
@@ -233,10 +229,9 @@ namespace ArrowMod
                     if (val.m_CraftedResultGear.name == "GEAR_ArrowHead")
                     {
                         val.m_DurationMinutes = Settings.options.arrowHeadCraftTime * (int)Mathf.Floor(val.m_CraftedResultCount/2);
-                        ArrowMod.Log("arrowhead time: " + val.m_DurationMinutes + " for " + val.name);
+                        //ArrowMod.Log("arrowhead time: " + val.m_DurationMinutes + " for " + val.name);
                     }
                 }
-                ArrowMod.Log(" * Done ");
             }
         }
 
