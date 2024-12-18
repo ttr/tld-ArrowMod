@@ -1,0 +1,35 @@
+{
+    "Name": "BLUEPRINT_GEAR_Arrow_ArrowMod_B",
+    "RequiredGear": [
+        {
+            "Item": "GEAR_Line",
+            "Count": 1
+        },
+        {
+            "Item": "GEAR_BarkTinder",
+            "Count": 1
+        },
+        {
+            "Item": "GEAR_ArrowShaft",
+            "Count": 1
+        },
+        {
+            "Item": "GEAR_ArrowHead",
+            "Count": 1
+        }
+    ],
+    "KeroseneLitersRequired": 0,
+    "GunpowderRequired": 0,
+    "RequiredTool": "GEAR_Knife",
+    "OptionalTools": [],
+    "RequiredCraftingLocation": "Anywhere",
+    "RequiresLitFire": false,
+    "RequiresLight": true,
+    "CraftedResult": "GEAR_Arrow",
+    "CraftedResultCount": 1,
+    "DurationMinutes": 120,
+    "CraftingAudio": "",
+    "AppliedSkill": "None",
+    "ImprovedSkill": "None"
+}
+

@@ -7,7 +7,7 @@ namespace ArrowMod
     {
         internal const string ModName = "ArrowMod";
         internal const string ModAuthor = "ttr";
-        internal const string ModVersion = "2.1.2";
+        internal const string ModVersion = "2.1.3";
     }
     internal class ArrowMod : MelonMod
     {

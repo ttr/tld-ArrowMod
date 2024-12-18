@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30611.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrowMod", "ArrowMod.csproj", "{DAF59C7B-B568-4A66-BECA-0D8B47971845}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrowModRevived", "ArrowModRevived.csproj", "{DAF59C7B-B568-4A66-BECA-0D8B47971845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -51,7 +51,7 @@ namespace ArrowMod
     }
 	internal static class Settings
 	{
-		public static ArrowModSettings options;
+		public static ArrowModSettings? options;
 		public static void OnLoad()
 		{
 			options = new ArrowModSettings();

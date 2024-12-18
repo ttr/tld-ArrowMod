@@ -1,0 +1,23 @@
+{
+    "Name": "BLUEPRINT_GEAR_ArrowShaft_ArrowMod_A",
+    "RequiredGear": [
+        {
+            "Item": "GEAR_Hardwood",
+            "Count": 1
+        }
+    ],
+    "KeroseneLitersRequired": 0,
+    "GunpowderRequired": 0,
+    "RequiredTool": "GEAR_Knife",
+    "OptionalTools": [],
+    "RequiredCraftingLocation": "Workbench",
+    "RequiresLitFire": false,
+    "RequiresLight": true,
+    "CraftedResult": "GEAR_ArrowShaft",
+    "CraftedResultCount": 5,
+    "DurationMinutes": 180,
+    "CraftingAudio": "",
+    "AppliedSkill": "None",
+    "ImprovedSkill": "None"
+}
+
