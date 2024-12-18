@@ -1,6 +1,6 @@
-# ArrowMod
+# ArrowModRevived
 
-This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requires ModSettings.
+This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requires ModSettings and ModComponents.
 
 ## Features
 
@@ -17,13 +17,14 @@ Optional support for tree bark from Leatherworks mod.
 Always up to date instructions, mod and dependency list: https://tldmods.com/
 
 1. If you haven't done so already, install MelonLoader.
-2. Download the latest version of `ArrowMod.dll`
+2. Download the latest version of `ArrowModRevived.dll` and `ArrowModRevived.modcomponent`
 3. Download the latest version of `ModSettings.dll`
 4. Download the latest version of `Craftingrevisions.dll`
-5. Move above .dll files into the Mods folder in your TLD install directory
+5. Download the latest version of `ModComponent.dll`
+6. Move above .dll files into the Mods folder in your TLD install directory
 
 ## Notes
 
 Settings change will require game restart.
-Blueprints that are unlocked by skill level, will be hiddne from craftiun list until level is reached.
-Many thanks to all TLD moding commniunity for support and assist.
+Blueprints that are unlocked by skill level, will be hidden from crafting list until level is reached.
+Many thanks to all TLD moding community for support and assist.
