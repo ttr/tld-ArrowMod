@@ -6,6 +6,7 @@ using Il2CppTLD.Gear;
 using Il2CppNodeCanvas.Tasks.Actions;
 using UnityEngine.AddressableAssets;
 using Unity.VisualScripting;
+using Il2CppSystem;
 
 
 namespace ArrowMod
@@ -19,6 +20,7 @@ namespace ArrowMod
             private static void Postfix()
             {
                 ArrowMod.Log("Adding blueprints.");
+                
                 if (Settings.options.arrowUseLine)
                 {
                     InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(new BlueprintData()
@@ -32,8 +34,12 @@ namespace ArrowMod
                         // Outputs
                         m_CraftedResultGear = GetGearItemPrefab("GEAR_Arrow"),
                         m_CraftedResultCount = 1,
+                        m_CraftingResultType = CraftingResult.StandardGear,
+                        m_CraftedResultDecoration = null,
+                        m_XPModesToDisable = new(),
 
                         // Process
+                        m_UsesPhoto = false,
                         m_Locked = false,
                         m_IgnoreLockInSurvival = false,
                         m_AppearsInStoryOnly = false,
@@ -58,7 +64,7 @@ namespace ArrowMod
                             [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                         }
                     });
-                    ArrowMod.Log("Adding blueprint 1.");
+                    ArrowMod.Log("Added: BLUEPRINT_GEAR_Arrow_ArrowMod_A");
 
                     if (Settings.options.craftFletchingFromBark)
                     {
@@ -74,8 +80,12 @@ namespace ArrowMod
                         // Outputs
                         m_CraftedResultGear = GetGearItemPrefab("GEAR_Arrow"),
                         m_CraftedResultCount = 1,
+                        m_CraftingResultType = CraftingResult.StandardGear,
+                        m_CraftedResultDecoration = null,
+                        m_XPModesToDisable = new(),
 
                         // Process
+                        m_UsesPhoto = false,
                         m_Locked = false,
                         m_IgnoreLockInSurvival = false,
                         m_AppearsInStoryOnly = false,
@@ -83,7 +93,7 @@ namespace ArrowMod
                         m_RequiresLight = true,
                         m_RequiresLitFire = false,
                         m_RequiredCraftingLocation = CraftingLocation.Anywhere,
-                        m_DurationMinutes = Settings.options.arrowCraftTime + Settings.options.craftFletchingFromBarkTime,
+                        m_DurationMinutes = Settings.options.arrowCraftTime *2 + Settings.options.craftFletchingFromBarkTime,
                         m_CraftingAudio = MakeAudioEvent("PLAY_CRAFTINGARROWS"),
 
                         m_AppliedSkill = SkillType.None,
@@ -99,7 +109,7 @@ namespace ArrowMod
                             [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                         }
                     });
-                        ArrowMod.Log("Adding blueprint 2.");
+                        ArrowMod.Log("Added: BLUEPRINT_GEAR_Arrow_ArrowMod_B");
 
                         if ((bool)GearItem.LoadGearItemPrefab("GEAR_BarkPrepared"))
                         {
@@ -116,8 +126,12 @@ namespace ArrowMod
                                 // Outputs
                                 m_CraftedResultGear = GetGearItemPrefab("GEAR_Arrow"),
                                 m_CraftedResultCount = 1,
+                                m_CraftingResultType = CraftingResult.StandardGear,
+                                m_CraftedResultDecoration = null,
+                                m_XPModesToDisable = new(),
 
                                 // Process
+                                m_UsesPhoto = false,
                                 m_Locked = false,
                                 m_IgnoreLockInSurvival = false,
                                 m_AppearsInStoryOnly = false,
@@ -125,7 +139,7 @@ namespace ArrowMod
                                 m_RequiresLight = true,
                                 m_RequiresLitFire = false,
                                 m_RequiredCraftingLocation = CraftingLocation.Anywhere,
-                                m_DurationMinutes = Settings.options.arrowCraftTime + Settings.options.craftFletchingFromBarkTime,
+                                m_DurationMinutes = Settings.options.arrowCraftTime *2 + Settings.options.craftFletchingFromBarkTime,
                                 m_CraftingAudio = MakeAudioEvent("PLAY_CRAFTINGARROWS"),
 
                                 m_AppliedSkill = SkillType.None,
@@ -141,7 +155,7 @@ namespace ArrowMod
                                     [3] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_ArrowHead") }
                                 }
                             });
-                            ArrowMod.Log("Adding blueprint 2b.");
+                            ArrowMod.Log("Added: BLUEPRINT_GEAR_Arrow_ArrowMod_B2");
                         }
                     }
 
@@ -149,6 +163,7 @@ namespace ArrowMod
 
                 if (Settings.options.craftArrowFromWood)
                 {
+
                     InterfaceManager.GetInstance().m_BlueprintManager.m_AllBlueprints.Add(new BlueprintData() { 
                     name = "BLUEPRINT_GEAR_ArrowShaft_ArrowMod_A",
 
@@ -159,8 +174,12 @@ namespace ArrowMod
                     // Outputs
                     m_CraftedResultGear = GetGearItemPrefab("GEAR_ArrowShaft"),
                     m_CraftedResultCount = 5,
+                    m_CraftingResultType = CraftingResult.StandardGear,
+                    m_CraftedResultDecoration = null,
+                    m_XPModesToDisable = new(),
 
                     // Process
+                    m_UsesPhoto = false,
                     m_Locked = false,
                     m_IgnoreLockInSurvival = false,
                     m_AppearsInStoryOnly = false,
@@ -181,12 +200,13 @@ namespace ArrowMod
                         [0] = new BlueprintData.RequiredGearItem() { m_Count = 1, m_Item = GetGearItemPrefab("GEAR_Hardwood") }
                     },
                 });
-                ArrowMod.Log("Adding blueprint 3.");
+                ArrowMod.Log("Added: BLUEPRINT_GEAR_ArrowShaft_ArrowMod_A");
                 }
 
             }
 
         }
+        
         [HarmonyPatch(typeof(BlueprintManager), "GetAllBlueprints")]
         public static class BlueprintManager_GetAllBlueprints {
             public static void Postfix(BlueprintManager __instance) {
@@ -225,6 +245,7 @@ namespace ArrowMod
                             val.Locked = false;
                         }
                     }
+
                     // arrowhead time
                     if (val.m_CraftedResultGear.name == "GEAR_ArrowHead")
                     {
