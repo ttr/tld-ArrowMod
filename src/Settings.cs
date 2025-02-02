@@ -38,15 +38,12 @@ namespace ArrowMod
 		[Name("... skill level")]
 		[Description("Archery skill required to craft fletchings from bark - designed to be late game - recommended is 3-5.")]
 		[Slider(0, 5)]
-		public int craftFletchingFromBarkLevel = 4;
+		public int craftFletchingFromBarkLevel = 3;
 
 		[Name("... additional time")]
-		[Description("Additional time in minutes per arrow needed to craft fletchings.")]
+		[Description("Additional time in minutes per arrow needed to craft fletchings.\n Note: this will take longer with improvised tools.")]
 		[Slider(0, 20)]
 		public int craftFletchingFromBarkTime = 5;
-
-        
-
 
     }
 	internal static class Settings
