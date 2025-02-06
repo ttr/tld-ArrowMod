@@ -9,7 +9,9 @@ This mod for *The Long Dark* allows you to adjust how arrows are crafted. Requir
 3. Optionally, lines can be required for crafting arrows.
 4. Optionally, arrow shafts can also be crafted from hardwood - intended for late game, based on archery skill.
 5. Optionally, arrows can be crafted using birch bark as fletching instead of fethers - intended for late game, based on archery skill.
+6. Oprionally, workbench requirement to craft arrow can be disabled - game restart is required to take this into effect.
 
+1st and 2nd works independly from other options - 3rd one enable/disable rest.
 Optional support for tree bark from Leatherworks mod.
 
 ## Installation

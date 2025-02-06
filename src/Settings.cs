@@ -1,14 +1,13 @@
 using ModSettings;
+using System.Reflection;
 
 namespace ArrowMod
 {
-	
 	internal class ArrowModSettings : JsonModSettings
 	{
-        [Section("Arrow Mod Settings")]
-        
+    [Section("Arrow Mod Settings")]
 
-        [Name("Arrowhead craft time")]
+    [Name("Arrowhead craft time")]
 		[Description("Minutes to craft 2 arrowheads. Default is 60, recommended is 20-40")]
 		[Slider(1, 120)]
 		public int arrowHeadCraftTime = 60;
@@ -45,13 +44,31 @@ namespace ArrowMod
 		[Slider(0, 20)]
 		public int craftFletchingFromBarkTime = 5;
 
+    [Name("No workbench for arrows")]
+    [Description("Arrows do not need workbench to be crafted.\n Vanilla is false, recommended is true.\n Restart game after change.")]
+    public bool arrowsNoBench = true;
+    protected override void OnChange(FieldInfo field, object? oldValue, object? newValue)
+    {
+      draw();
     }
+    internal void draw() 
+    {
+      SetFieldVisible(nameof(craftFletchingFromBark), arrowUseLine);
+      SetFieldVisible(nameof(craftFletchingFromBarkLevel), (arrowUseLine && craftFletchingFromBark));
+      SetFieldVisible(nameof(craftFletchingFromBarkTime), (arrowUseLine && craftFletchingFromBark));
+      SetFieldVisible(nameof(arrowsNoBench), arrowUseLine);
+
+      SetFieldVisible(nameof(craftArrowFromWoodLevel), craftArrowFromWood);
+      RefreshGUI();
+    }
+  }
 	internal static class Settings
 	{
-		public static ArrowModSettings options;
+		public static ArrowModSettings options = new();
 		public static void OnLoad()
 		{
 			options = new ArrowModSettings();
+      options.draw();
 			options.AddToModSettings("Arrow Mod Settings");
 		}
 	}
